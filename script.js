@@ -6,7 +6,8 @@
     const colors = document.getElementsByClassName('color');
 
     const save = () => {
-        localStorage.setItem('colorPalette', colorsPalette.innerHTML);
+        const paleta = document.querySelector('#color-palette');        
+        localStorage.setItem('colorPalette', paleta.innerHTML);
     }
 
     btnRandomColors.addEventListener('click', () => {        
