@@ -1,4 +1,3 @@
-window.onload = () => {
     const btnRandomColors = document.getElementById('button-random-color');
     let colorsPalette = document.getElementById('color-palette');
     const block2 = document.getElementById('block2');
@@ -20,23 +19,29 @@ window.onload = () => {
         block2.style.backgroundColor = color2;
         block3.style.backgroundColor = color3;
         block4.style.backgroundColor = color4;                
-        save()
-        
+        save()        
     })
     
-    // const save = (colors) => {
-    //     if (localStorage.length === 0) {
-    //     localStorage.setItem('colorPalette', colors)
-    //     }
-    //     if (localStorage.length != 0) {
-    //         localStorage.setItem('colorPalette', `Block2: ${c2}, Block3: ${c3}, Block4: ${c4}`)
-    //     }
-    // }
 
+    const generateCells = () => {
+        const matriz = document.querySelector('#pixel-board');        
+        for (let index = 0; index < 5; index += 1){
+            const line = document.createElement('div');
+            line.className = 'line';
+            for(let index1 = 0; index1 <5; index1 += 1){
+                const cell = document.createElement('div');
+                cell.className = 'pixel';
+                line.appendChild(cell);
+            }
+            matriz.appendChild(line);
+        }        
+    }
+    generateCells()
 
+   
     
     
-}
+
 
 
 
