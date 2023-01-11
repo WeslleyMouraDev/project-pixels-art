@@ -1,11 +1,3 @@
-body {
-
-}
-
-#color-palette {
-    
-}
-
 #block1 {
     width: 48px;
     height: 48px;
@@ -13,7 +5,6 @@ body {
     border: 1px solid black;
     display: inline-block;
 }
-
 #block2 {
     width: 48px;
     height: 48px;
@@ -35,18 +26,14 @@ body {
     border: 1px solid black;
     display: inline-block;
 }
-
 .color {
     background-color: black;
 }
-
 #pixel-board {
     background-color: pink;
     width: 212px;
     
 }
-
-
 .pixel {
     background-color: white;
     width: 40px;
