@@ -25,20 +25,19 @@
         }
     }
 
-    
+    const corAletoria = () => {
+        let R = Math.floor(Math.random() *256);
+        let G = Math.floor(Math.random() *256);
+        let B = Math.floor(Math.random() *256);
+        return `rgb(${R}, ${G}, ${B})`;
+    }   
 
-    btnRandomColors.addEventListener('click', () => {            
-        const hex1 = (Math.random()*0xFFFFFF<<0).toString(16);
-        const hex2 = (Math.random()*0xFFFFFF<<0).toString(16);
-        const hex3 = (Math.random()*0xFFFFFF<<0).toString(16);
+    btnRandomColors.addEventListener('click', () => {        
         let color1 = 'rgb(0, 0, 0)';
-        let color2 = `#${hex1}`;
-        let color3 = `#${hex2}`;
-        let color4 = `#${hex3}`;
         block1.style.backgroundColor = color1;
-        block2.style.backgroundColor = color2;
-        block3.style.backgroundColor = color3;
-        block4.style.backgroundColor = color4;                
+        block2.style.backgroundColor = corAletoria();
+        block3.style.backgroundColor = corAletoria();
+        block4.style.backgroundColor = corAletoria();                
         save()        
     })
     const generateCells = () => {
