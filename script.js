@@ -5,8 +5,11 @@
     const block2 = document.getElementById('block2');
     const block3 = document.getElementById('block3');
     const block4 = document.getElementById('block4');
-    const colors = document.querySelectorAll('.color');
+    const colors = document.querySelectorAll('.color');    
+    const pixels = document.getElementsByClassName('pixel')
     block1.classList.add('selected');
+    let targetSelected = document.querySelector('.selected')
+    let targetColor = targetSelected.style.backgroundColor;
     
 
     const save = () => {          
@@ -22,11 +25,13 @@
         }
     }
 
+    
+
     btnRandomColors.addEventListener('click', () => {            
         const hex1 = (Math.random()*0xFFFFFF<<0).toString(16);
         const hex2 = (Math.random()*0xFFFFFF<<0).toString(16);
         const hex3 = (Math.random()*0xFFFFFF<<0).toString(16);
-        let color1 = '#000000';
+        let color1 = 'rgb(0, 0, 0)';
         let color2 = `#${hex1}`;
         let color3 = `#${hex2}`;
         let color4 = `#${hex3}`;
@@ -43,25 +48,37 @@
             line.className = 'line';
             for(let index1 = 0; index1 <5; index1 += 1){
                 const cell = document.createElement('div');
-                cell.className = 'pixel';     
-                cell.addEventListener('click', () => {
-                    let target = document.querySelector('.selected')
-                    let targetColor = target.style.backgroundColor;
+                cell.className = 'pixel';
+                cell.style.backgroundColor = 'white';                 
+                cell.addEventListener('click', () => {       
+                    targetSelected = document.querySelector('.selected')
+                    targetColor = targetSelected.style.backgroundColor;
                     cell.style.backgroundColor = targetColor
                 })           
                 line.appendChild(cell);
             }
             matriz.appendChild(line);
+            
         }        
     }
     generateCells()
     
+    // let pixelSave = JSON.stringify([`${pixelTeste}`])
+    // const pixelTeste = pixelBackground
+    // let pixelBackground = []
+    // const pixelBoard = document.getElementsByClassName('pixel');          
+    //     for(index = 0; index < pixelBoard.length; index += 1){
+    //         pixelBackground.push(pixelBoard[index].style.backgroundColor);
+        // }
+        // localStorage.setItem('pixelBoard', JSON.stringify([this.pixels]));    
+        // console.log(pixelSave);
+        
     const generateEventClick = () => {
         for(index = 0; index < colors.length; index += 1){
             colors[index].addEventListener('click', (event) =>{
-                if (event.target === document.querySelector('.selected')){
-                    targetColor = target.style.backgroundColor;
-                }
+                // if (event.target === document.querySelector('.selected')){
+                //     targetColor = target.style.backgroundColor;
+                // }
                 if (event.target != document.querySelector('.selected')){
                     for(index = 0; index < colors.length; index +=1){
                         if(colors[index] === document.querySelector('.selected')){
@@ -71,7 +88,7 @@
                     event.target.classList.add('selected');
                     
                 }
-                targetColor = target.style.backgroundColor;
+                targetColor = targetSelected.style.backgroundColor;
             })
         }
     }
@@ -80,7 +97,7 @@
     btnClear.addEventListener('click', () => {
         pixelClass = document.querySelectorAll('.pixel');
         for (index = 0; index < pixelClass.length; index += 1){
-            pixelClass[index].style.backgroundColor = 'white';
+            pixelClass[index].style.backgroundColor = 'rgb(255, 255, 255)';
         }
     })
 
