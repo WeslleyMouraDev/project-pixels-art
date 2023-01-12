@@ -6,12 +6,20 @@ const block3 = document.getElementById('block3');
 const block4 = document.getElementById('block4');
 const colors = document.querySelectorAll('.color');
 const pixels = document.getElementsByClassName('pixel');
+const btnVQV = document.getElementById('generate-board');
+const input = document.getElementById('board-size');
+const pixelBoard = document.getElementsByClassName('pixel-board');
+const linesBoard = document.getElementsByClassName('line');
+let pixelsQuantity = 5;
+
 block1.classList.add('selected');
+
 // salva cores aleatórias no LocalStorage
 const save = () => {
   // eslint-disable-next-line max-len
   localStorage.setItem('colorPalette', JSON.stringify([block1.style.backgroundColor, block2.style.backgroundColor, block3.style.backgroundColor, block4.style.backgroundColor]));
 };
+
 const recoveryObject = JSON.parse(localStorage.getItem('colorPalette'));
 const corAletoria = () => {
   const R = Math.floor(Math.random() * 255);
@@ -19,6 +27,7 @@ const corAletoria = () => {
   const B = Math.floor(Math.random() * 255);
   return `rgb(${R}, ${G}, ${B})`;
 };
+
 function iniciateColors() {
   if (localStorage.getItem('colorPalette') != null) {
     for (let index = 0; index < recoveryObject.length; index += 1) {
@@ -36,6 +45,7 @@ function iniciateColors() {
   save();
 }
 iniciateColors();
+
 // gera evento de click do botão Cores aleatórias
 btnRandomColors.addEventListener('click', () => {
   const color1 = 'black';
@@ -45,6 +55,7 @@ btnRandomColors.addEventListener('click', () => {
   block4.style.backgroundColor = corAletoria();
   save();
 });
+
 // salva o backgroundColor dos pixels
 const backgroundPixel = [];
 const savePixels = () => {
@@ -59,13 +70,14 @@ const savePixels = () => {
   }
   localStorage.setItem('pixelBoard', JSON.stringify(backgroundPixel));
 };
+
 // gera quadro de pixels
 const generateCells = () => {
   const matriz = document.querySelector('#pixel-board');
-  for (let index = 0; index < 5; index += 1) {
+  for (let index = 0; index < pixelsQuantity; index += 1) {
     const line = document.createElement('div');
     line.className = 'line';
-    for (let index1 = 0; index1 < 5; index1 += 1) {
+    for (let index1 = 0; index1 < pixelsQuantity; index1 += 1) {
       const cell = document.createElement('div');
       cell.className = 'pixel';
       cell.style.backgroundColor = 'rgb(255, 255, 255)';
@@ -117,3 +129,42 @@ const recoveryPixels = () => {
   }
 };
 recoveryPixels();
+
+const linesLenght = [];
+const generateLinesLenght = () => {
+  for (let index = 0; index < linesBoard.length; index += 1) {
+    linesLenght.push(1);
+  }
+};
+
+const generateNewQuantity = () => {
+  if (input.value < 5) {
+    pixelsQuantity = 5;
+  }
+  if (input.value > 50) {
+    pixelsQuantity = 50;
+  }
+  if (input.value > 5 && input.value < 50) {
+    pixelsQuantity = input.value;
+  }
+};
+
+const removeLines = () => {
+  for (let index = 0; index < linesLenght.length; index += 1) {
+    document.querySelector('.line').remove();
+  }
+  for (let index1 = 0; index1 < linesLenght.length; index1 += 1) {
+    linesLenght.splice(index1, linesLenght.length);
+  }
+};
+
+btnVQV.addEventListener('click', () => {
+  if (input.value) {
+    generateLinesLenght();
+    removeLines();
+    generateNewQuantity();
+    generateCells();
+  } else {
+    alert('Board inválido!');
+  }
+});
