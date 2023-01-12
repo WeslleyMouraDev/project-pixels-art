@@ -11,17 +11,11 @@ block1.classList.add('selected');
 let targetSelected = document.querySelector('.selected');
 let targetColor = targetSelected.style.backgroundColor;
 
+//salva cores aleatórias no LocalStorage
 const save = () => {
   localStorage.setItem('colorPalette', JSON.stringify([block1.style.backgroundColor, block2.style.backgroundColor, block3.style.backgroundColor, block4.style.backgroundColor]));
 };
 const recoveryObject = JSON.parse(localStorage.getItem('colorPalette'));
-for (let index = 0; index < colors.length; index += 1) {
-  if (localStorage.getItem('colorPalette') != null) {
-    for (index = 0; index < recoveryObject.length; index += 1) {
-      colors[index].style.backgroundColor = recoveryObject[index];
-    }
-  }
-}
 const corAletoria = () => {
   const R = Math.floor(Math.random() * 255);
   const G = Math.floor(Math.random() * 255);
@@ -45,6 +39,7 @@ function iniciateColors () {
   save();
 }
 iniciateColors();
+//gera evento de click do botão Cores aleatórias
 btnRandomColors.addEventListener('click', () => {
   const color1 = 'black';
   block1.style.backgroundColor = color1;
@@ -53,6 +48,7 @@ btnRandomColors.addEventListener('click', () => {
   block4.style.backgroundColor = corAletoria();
   save();
 });
+//gera quadro de pixels
 const generateCells = () => {
   const matriz = document.querySelector('#pixel-board');
   for (let index = 0; index < 5; index += 1) {
@@ -66,6 +62,7 @@ const generateCells = () => {
         targetSelected = document.querySelector('.selected');
         targetColor = targetSelected.style.backgroundColor;
         cell.style.backgroundColor = targetColor;
+        savePixels ();       
       });   
       line.appendChild(cell);
     }
@@ -74,17 +71,7 @@ const generateCells = () => {
 };
 generateCells();
 
-
-
-let pixelSave = JSON.stringify([`${pixelBackground}`])
-let pixelBackground = []
-const pixelBoard = document.getElementsByClassName('pixel');
-    for(index = 0; index < pixelBoard.length; index += 1){
-        pixelBackground.push(pixelBoard[index].style.backgroundColor);
-}
-localStorage.setItem('pixelBoard', JSON.stringify([this.pixels]));
-console.log(pixelSave);
-
+//gera evento de click da Paleta de Cores
 const generateEventClick = () => {
   for (index = 0; index < colors.length; index += 1) {
     colors[index].addEventListener('click', (event) => {
@@ -100,11 +87,39 @@ const generateEventClick = () => {
     });
   }
 };
+
+
+
+//salva o backgroundColor dos pixels
+let backgroundPixel = [];
+const savePixels = () => {
+  for (index = 0; index < backgroundPixel.length; index += 1){
+    backgroundPixel.splice(index, 999);
+  }
+  for(index = 0; index < pixels.length; index += 1) {
+    backgroundPixel.push(pixels[index].style.backgroundColor);    
+  }
+  if(localStorage.getItem('pixelBoard') != null){
+    localStorage.removeItem('pixelBoard');
+  }
+  localStorage.setItem('pixelBoard', JSON.stringify(backgroundPixel));
+}
+//gera evento de click do botão Limpar
 generateEventClick();
 btnClear.addEventListener('click', () => {
   pixelClass = document.querySelectorAll('.pixel');
   for (index = 0; index < pixelClass.length; index += 1) {
     pixelClass[index].style.backgroundColor = 'rgb(255, 255, 255)';
   }
+  savePixels();
 });
-
+//recupera o backgroundColor dos pixels
+const recoveryBoard = JSON.parse(localStorage.getItem('pixelBoard'));
+const recoveryPixels = () => {
+  if (localStorage.getItem('pixelBoard') != null){  
+    for (index = 0; index < recoveryBoard.length; index += 1){
+      pixels[index].style.backgroundColor = recoveryBoard[index];
+    }    
+  }
+}
+recoveryPixels();
