@@ -70,3 +70,7 @@ body {
     padding-top: 10px;
     padding-bottom: 10px;
 }
+.selected {
+    border: 5px outset rgb(30, 255, 0);
+    /* background-color: rgba(0, 68, 0, 0.5); */
+}
