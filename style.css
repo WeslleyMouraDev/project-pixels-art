@@ -1,34 +1,72 @@
-#block1 {
-    width: 48px;
-    height: 48px;
-    /* background-color: rgb(0, 0, 0); */
-    border: 1px solid rgb(0, 0, 0);
-    display: inline-block;
+body {
+    background-image: url('background.jpg');
+    background-size: cover;
 }
-#block2 {
-    width: 48px;
-    height: 48px;
-    /* background-color: rgb(255, 255, 0); */
-    border: 1px solid rgb(0, 0, 0);
-    display: inline-block;
+#sub-title{
+    color: white;
+    display: flex;
+    justify-content: center;
 }
-#block3 {
-    width: 48px;
-    height: 48px;
-    /* background-color: rgb(102, 51, 153); */
-    border: 1px solid rgb(0, 0, 0);
-    display: inline-block;
+#title {
+    color: white;
+    display: flex;
+    justify-content: center;
+    padding-top: 30px;
 }
-#block4 {
+#color-palette {
+    display: flex;
+    justify-content: center;
+    padding-bottom: 20px;
+    
+}
+#buttons1 {
+    display: flex;
+    justify-content: center;
+    padding-bottom: 10px;
+}
+.color {
     width: 48px;
     height: 48px;
-    /* background-color: blue; */
     border: 1px solid black;
+    border-radius: 100%;
     display: inline-block;
+    margin-right: 10px;
+    cursor: pointer;
+}
+#button-random-color {
+    margin-right: 10px;
+}
+#board-size {
+    margin-right: 10px;
+}
+#generate-board {
+    margin-right: 10px;
+}
+#clear-board {
+    margin-right: 20px;
+}
+#pixel-board {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.line {
+    display: flex;
+    justify-content: center;
 }
 .pixel {
     width: 40px;
     height: 40px;
     border: 1px solid black;
-    display: inline-block;
+    display: flex;
+    justify-content: center;
+    cursor: pointer;
+}
+
+#surprise {
+    display: flex;
+    justify-content: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }

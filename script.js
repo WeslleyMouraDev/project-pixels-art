@@ -9,6 +9,7 @@ const pixels = document.getElementsByClassName('pixel');
 const btnVQV = document.getElementById('generate-board');
 const input = document.getElementById('board-size');
 const linesBoard = document.getElementsByClassName('line');
+const invisible = document.querySelector('.invisible');
 let pixelsQuantity;
 block1.classList.add('selected');
 
@@ -22,13 +23,13 @@ const recoveryBoardSize = () => {
   }
 };
 recoveryBoardSize();
-
 // salva cores aleatórias no LocalStorage
 const save = () => {
   // eslint-disable-next-line max-len
   localStorage.setItem('colorPalette', JSON.stringify([block1.style.backgroundColor, block2.style.backgroundColor, block3.style.backgroundColor, block4.style.backgroundColor]));
 };
 
+// Cria cores aleatórias e recupera no LocalStorage
 const recoveryObject = JSON.parse(localStorage.getItem('colorPalette'));
 const corAletoria = () => {
   const R = Math.floor(Math.random() * 255);
@@ -55,6 +56,39 @@ function iniciateColors() {
 }
 iniciateColors();
 
+// Easter  Egg
+const removeClass = () => {
+  if (document.querySelector('.btn btn-success btn-lg') !== null) {
+    invisible.classList.remove('btn', 'btn-success', 'btn-lg');
+  }
+  if (document.querySelector('.invisible') === null) {
+    invisible.classList.add('invisible');
+  }
+};
+
+const pixelsColors = [];
+const removePixelColorsArray = () => {
+  for (let index1 = 0; index1 < pixelsColors.length; index1 += 1) {
+    pixelsColors.splice(index1, pixelsColors.length);
+  }
+};
+
+const easterEgg = () => {
+  const pixelClass = document.querySelectorAll('.pixel');
+  for (let index = 0; index < pixelClass.length; index += 1) {
+    if (pixelClass[index].style.backgroundColor !== 'rgb(255, 255, 255)') {
+      pixelsColors.push(1);
+    }
+  }
+  if (pixelsColors.length === pixelClass.length) {
+    invisible.classList.add('btn', 'btn-success', 'btn-lg');
+    invisible.classList.remove('invisible');
+    removePixelColorsArray();
+  } else {
+    removePixelColorsArray();
+  }
+};
+
 // gera evento de click do botão Cores aleatórias
 btnRandomColors.addEventListener('click', () => {
   const color1 = 'black';
@@ -78,6 +112,7 @@ const savePixels = () => {
     localStorage.removeItem('pixelBoard');
   }
   localStorage.setItem('pixelBoard', JSON.stringify(backgroundPixel));
+  easterEgg();
 };
 
 // gera quadro de pixels
@@ -127,6 +162,8 @@ btnClear.addEventListener('click', () => {
     pixelClass[index].style.backgroundColor = 'rgb(255, 255, 255)';
   }
   savePixels();
+  removePixelColorsArray();
+  removeClass();
 });
 // recupera o backgroundColor dos pixels
 const recoveryBoard = JSON.parse(localStorage.getItem('pixelBoard'));
@@ -147,6 +184,7 @@ const generateLinesLenght = () => {
 };
 
 const generateNewQuantity = () => {
+  recoveryBoardSize();
   if (input.value < 5) {
     pixelsQuantity = 5;
   }
@@ -181,6 +219,7 @@ btnVQV.addEventListener('click', () => {
     localStorage.setItem('boardSize', pixelsQuantity);
     recoveryBoardSize();
     removePixelBoardColor();
+    removeClass();
   } else {
     alert('Board inválido!');
   }
