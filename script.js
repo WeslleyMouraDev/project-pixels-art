@@ -8,11 +8,20 @@ const colors = document.querySelectorAll('.color');
 const pixels = document.getElementsByClassName('pixel');
 const btnVQV = document.getElementById('generate-board');
 const input = document.getElementById('board-size');
-const pixelBoard = document.getElementsByClassName('pixel-board');
 const linesBoard = document.getElementsByClassName('line');
-let pixelsQuantity = 5;
-
+let pixelsQuantity;
 block1.classList.add('selected');
+
+const recoveryBoardPixels = localStorage.getItem('boardSize');
+const recoveryBoardSize = () => {
+  if (recoveryBoardPixels !== null) {
+    pixelsQuantity = recoveryBoardPixels;
+  }
+  if (input.value === 5 || recoveryBoardPixels === null) {
+    pixelsQuantity = 5;
+  }
+};
+recoveryBoardSize();
 
 // salva cores aleatórias no LocalStorage
 const save = () => {
@@ -144,8 +153,13 @@ const generateNewQuantity = () => {
   if (input.value > 50) {
     pixelsQuantity = 50;
   }
-  if (input.value > 5 && input.value < 50) {
+  if (input.value > 5 && input.value < 51) {
     pixelsQuantity = input.value;
+  }
+};
+const removePixelBoardColor = () => {
+  if (recoveryBoardPixels > 5 && recoveryBoardPixels !== input.value) {
+    localStorage.removeItem('pixelBoard');
   }
 };
 
@@ -164,6 +178,9 @@ btnVQV.addEventListener('click', () => {
     removeLines();
     generateNewQuantity();
     generateCells();
+    localStorage.setItem('boardSize', pixelsQuantity);
+    recoveryBoardSize();
+    removePixelBoardColor();
   } else {
     alert('Board inválido!');
   }
